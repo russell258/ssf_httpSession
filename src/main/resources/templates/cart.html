@@ -7,6 +7,22 @@
     <title>Shopping Cart</title>
 </head>
 <body>
-    
+    <form action="#" method="POST" data-th-action="@{/cart}" data-th-object="${item}">
+        Product Name: <input type = "text" data-th-field="*{name}"/>
+        Quantity: <input type = "number" min="1" step ="1" data-th-field="*{quantity}"/>
+        <button type="submit">Add</button>
+    </form>
+
+    <div data-th-unless="${#lists.isEmpty(cart.contents)}">
+        <div data-th-each="it:${cart.contents}" data-th-objects="${it}">
+            <span data-th-text="*{name}"></span>
+            <span data-th-number="*{quantity}"></span>
+        </div>
+    </div>
+
+    <form method="GET" data-th-action="@{/cart/checkout}">
+        <button type="submit">Check out</button>"
+    </form>
+
 </body>
 </html>
