@@ -13,13 +13,13 @@ import sg.edu.nus.iss.ssf_httpsession.model.Cart;
 import sg.edu.nus.iss.ssf_httpsession.model.Item;
 
 @Controller
-@RequestMapping(path = "/")
+@RequestMapping(path = "/cart")
 public class ShoppingCartController {
     
-    @GetMapping(path = "/cart")
+    @GetMapping
     public String showCart(Model model, HttpSession session){
         Cart c = (Cart) session.getAttribute("cart");
-        if (c==null){
+        if (null==c){
             c = new Cart();
             session.setAttribute("cart", c);
         }
@@ -37,7 +37,7 @@ public class ShoppingCartController {
             model.addAttribute("cart", c);
             return "cart";
         }
-        if (c==null){
+        if (null==c){
             c=new Cart();
             session.setAttribute("cart", c);
         }
@@ -50,14 +50,16 @@ public class ShoppingCartController {
     @GetMapping(path="/checkout")
     public String checkout(Model m, HttpSession s){
         System.out.println("Checkout....");
-        s.invalidate();
+        //why put here below??
+        //s.invalidate();
         Cart c = (Cart) s.getAttribute("cart");
-        if (c==null){
+        if (null==c){
             c = new Cart();
             s.setAttribute("cart", c);
         }
         m.addAttribute("item", new Item());
         m.addAttribute("cart", c);
+        s.invalidate();
         return "cart";
     }
 

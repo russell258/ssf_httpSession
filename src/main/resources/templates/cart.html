@@ -14,14 +14,14 @@
     </form>
 
     <div data-th-unless="${#lists.isEmpty(cart.contents)}">
-        <div data-th-each="it:${cart.contents}" data-th-objects="${it}">
+        <div data-th-each="it:${cart.contents}" data-th-object="${it}">
             <span data-th-text="*{name}"></span>
-            <span data-th-number="*{quantity}"></span>
+            <span data-th-text="*{quantity}"></span>
         </div>
     </div>
 
     <form method="GET" data-th-action="@{/cart/checkout}">
-        <button type="submit">Check out</button>"
+        <button type="submit">Check out</button>
     </form>
 
 </body>
